@@ -43,8 +43,6 @@
 			{
 				var findCurrent = function( url )
 				{
-					url = url.split( "?" )[ 0 ].split( "#" )[ 0 ];
-
 					var $a = that.$menu.find( 'a[href="'+ url +'"], a[href="'+ url +'/"]' );
 					if ( $a.length )
 					{
@@ -52,10 +50,20 @@
 					}
 					else
 					{
-						url = url.split( '/' ).slice( 0, -1 );
-						if ( url.length )
+						url = url.split( "?" )[ 0 ].split( "#" )[ 0 ];
+
+						$a = that.$menu.find( 'a[href="'+ url +'"], a[href="'+ url +'/"]' );
+						if ( $a.length )
 						{
-							findCurrent( url.join( '/' ) );
+							that.setSelected( $a.parent(), true );
+						}
+						else
+						{
+							url = url.split( '/' ).slice( 0, -1 );
+							if ( url.length )
+							{
+								findCurrent( url.join( '/' ) );
+							}
 						}
 					}
 				};
